@@ -33,8 +33,4 @@ jobs:
           SOURCE: "dist/"
           REMOTE_HOST: "project2.eaglesoftwareteam.com"
           REMOTE_USER: ubuntu
-<<<<<<< HEAD
-          TARGET: "/var/www/html/project2/2023/t{number}"
-=======
           TARGET: "/var/www/html/2023/project2/t4"
->>>>>>> 1bd683ac573b3e221e37de9a452915fe3cd5492c
