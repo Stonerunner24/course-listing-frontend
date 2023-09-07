@@ -1,5 +1,5 @@
 <script setup>
-import TutorialServices from "../services/tutorialServices";
+import CourseServices from "../services/courseServices";
 import Utils from "../config/utils.js";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
@@ -18,7 +18,7 @@ const viewTutorial = (tutorial) => {
 };
 
 const deleteTutorial = (tutorial) => {
-  TutorialServices.delete(tutorial.id)
+  CourseServices.delete(tutorial.id)
     .then(() => {
       retrieveTutorials();
     })
@@ -28,7 +28,7 @@ const deleteTutorial = (tutorial) => {
 };
 
 const retrieveTutorials = () => {
-  TutorialServices.getAllForUser(user.userId)
+  CourseServices.getAllForUser(user.userId)
     .then((response) => {
       tutorials.value = response.data;
     })
@@ -50,7 +50,7 @@ retrieveTutorials();
       </v-toolbar>
       <br /><br />
       <v-card>
-        <v-card-title> Tutorials </v-card-title>
+        <v-card-title> Courses </v-card-title>
         <v-card-text>
           <b>{{ message }}</b>
         </v-card-text>

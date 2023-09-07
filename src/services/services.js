@@ -1,13 +1,12 @@
 import axios from "axios";
 import Utils from "../config/utils.js";
-import AuthServices from "./authServices.js";
 import Router from "../router.js";
 
 var baseurl = "";
 if (import.meta.env.DEV) {
-  baseurl = "http://localhost/tutorial/";
+  baseurl = "http://localhost/course-t4/courses";
 } else {
-  baseurl = "/tutorial/";
+  baseurl = "/course-t4/courses";
 }
 
 const apiClient = axios.create({
