@@ -8,7 +8,7 @@ dns.setDefaultResultOrder("verbatim");
 export default () => {
   const baseURL =
 
-    process.env.APP_ENV === "development" ? "/" : "/course-listing/";
+    process.env.APP_ENV === "development" ? "/" : "/2023/project2/t4";
 
 
   return defineConfig({
