@@ -1,13 +1,12 @@
 <script setup>
-import TutorialServices from "../services/tutorialServices";
+import CourseServices from "../services/courseServices";
 import Utils from "../config/utils.js";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-const tutorials = ref([]);
-const user = Utils.getStore("user");
-const message = ref("Search, Edit or Delete Tutorials");
+const courses = ref([]);
+const message = ref("View, edit, or delete courses.");
 
 const editTutorial = (tutorial) => {
   router.push({ name: "edit", params: { id: tutorial.id } });
@@ -18,7 +17,7 @@ const viewTutorial = (tutorial) => {
 };
 
 const deleteTutorial = (tutorial) => {
-  TutorialServices.delete(tutorial.id)
+  CourseServices.delete(tutorial.id)
     .then(() => {
       retrieveTutorials();
     })
@@ -28,9 +27,9 @@ const deleteTutorial = (tutorial) => {
 };
 
 const retrieveTutorials = () => {
-  TutorialServices.getAllForUser(user.userId)
+  CourseServices.getAll()
     .then((response) => {
-      tutorials.value = response.data;
+      courses.value = response.data;
     })
     .catch((e) => {
       message.value = e.response.data.message;
@@ -43,27 +42,22 @@ retrieveTutorials();
 <template>
   <div>
     <v-container>
-      <v-toolbar>
-        <v-toolbar-title
-          >Hello, {{ user.fName }} {{ user.lName }}!</v-toolbar-title
-        >
-      </v-toolbar>
       <br /><br />
       <v-card>
-        <v-card-title> Tutorials </v-card-title>
+        <v-card-title> Courses </v-card-title>
         <v-card-text>
           <b>{{ message }}</b>
         </v-card-text>
         <v-table>
-          <thead>
+          <!-- <thead>
             <tr>
               <th class="text-left">Title</th>
               <th class="text-left">Description</th>
               <th class="text-left">Actions</th>
             </tr>
-          </thead>
+          </thead> -->
           <tbody>
-            <tr v-for="(item, index) in tutorials" :key="item.title">
+            <tr v-for="(item, index) in courses" :key="item.title">
               <td>{{ item.title }}</td>
               <td>{{ item.description }}</td>
               <td>
