@@ -2,7 +2,7 @@ import apiClient from "./services.js";
 
 export default {
   getAll() {
-    return apiClient.get("/course-t4/courses/");
+    return apiClient.get("/");
   },
   get(course_number) {
     return apiClient.get(`/course-t4/courses/:${course_number}`);

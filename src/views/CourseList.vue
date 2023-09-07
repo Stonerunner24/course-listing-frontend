@@ -5,9 +5,8 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-const tutorials = ref([]);
-const user = Utils.getStore("user");
-const message = ref("Search, Edit or Delete Tutorials");
+const courses = ref([]);
+const message = ref("View, edit, or delete courses.");
 
 const editTutorial = (tutorial) => {
   router.push({ name: "edit", params: { id: tutorial.id } });
@@ -28,9 +27,9 @@ const deleteTutorial = (tutorial) => {
 };
 
 const retrieveTutorials = () => {
-  CourseServices.getAllForUser(user.userId)
+  CourseServices.getAll()
     .then((response) => {
-      tutorials.value = response.data;
+      courses.value = response.data;
     })
     .catch((e) => {
       message.value = e.response.data.message;
@@ -43,11 +42,6 @@ retrieveTutorials();
 <template>
   <div>
     <v-container>
-      <v-toolbar>
-        <v-toolbar-title
-          >Hello, {{ user.fName }} {{ user.lName }}!</v-toolbar-title
-        >
-      </v-toolbar>
       <br /><br />
       <v-card>
         <v-card-title> Courses </v-card-title>
@@ -55,15 +49,15 @@ retrieveTutorials();
           <b>{{ message }}</b>
         </v-card-text>
         <v-table>
-          <thead>
+          <!-- <thead>
             <tr>
               <th class="text-left">Title</th>
               <th class="text-left">Description</th>
               <th class="text-left">Actions</th>
             </tr>
-          </thead>
+          </thead> -->
           <tbody>
-            <tr v-for="(item, index) in tutorials" :key="item.title">
+            <tr v-for="(item, index) in courses" :key="item.title">
               <td>{{ item.title }}</td>
               <td>{{ item.description }}</td>
               <td>
