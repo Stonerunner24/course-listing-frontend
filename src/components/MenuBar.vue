@@ -1,4 +1,4 @@
-<script setup>
+  <script setup>
 import ocLogo from "/oc-logo-white.png";
 import { ref, onMounted } from "vue";
 import Utils from "../config/utils";
