@@ -8,25 +8,21 @@ const router = useRouter();
 const courses = ref([]);
 const message = ref("View, edit, or delete courses.");
 
-const editTutorial = (tutorial) => {
-  router.push({ name: "edit", params: { id: tutorial.id } });
+const editCourse = (course) => {
+  router.push({ name: "edit", params: { id: course.course_number } });
 };
 
-const viewTutorial = (tutorial) => {
-  router.push({ name: "view", params: { id: tutorial.id } });
-};
-
-const deleteTutorial = (tutorial) => {
-  CourseServices.delete(tutorial.id)
+const deleteCourse = (course) => {
+  CourseServices.delete(course.course_number)
     .then(() => {
-      retrieveTutorials();
+      retrieveCourses();
     })
     .catch((e) => {
       message.value = e.response.data.message;
     });
 };
 
-const retrieveTutorials = () => {
+const retrieveCourses = () => {
   CourseServices.getAll()
     .then((response) => {
       courses.value = response.data;
@@ -36,7 +32,7 @@ const retrieveTutorials = () => {
     });
 };
 
-retrieveTutorials();
+retrieveCourses();
 </script>
 
 <template>
@@ -61,13 +57,13 @@ retrieveTutorials();
               <td>{{ item.title }}</td>
               <td>{{ item.description }}</td>
               <td>
-                <v-icon small class="mx-4" @click="editTutorial(item)">
+                <v-icon small class="mx-4" @click="editCourse(item)">
                   mdi-pencil
                 </v-icon>
-                <v-icon small class="mx-4" @click="viewTutorial(item)">
+                <v-icon small class="mx-4" @click="viewCourse(item)">
                   mdi-format-list-bulleted-type
                 </v-icon>
-                <v-icon small class="mx-4" @click="deleteTutorial(item)">
+                <v-icon small class="mx-4" @click="deleteCourse(item)">
                   mdi-trash-can
                 </v-icon>
               </td>
