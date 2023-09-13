@@ -1,27 +1,39 @@
-<script setup>
+<script>
     import {ref, onMounted} from 'vue'
     import courseServices from '../services/courseServices';
 
-    const id = ref()
 
-    const course = ({
-        department: course.value.department,
-        number: course.value.number,
-        level: course.value.level,
-        hours: course.value.hours,
-        name: course.value.name,
-        description: course.value.description
-    })
+    export default {
+    props: {
+        department: String,
+        number: String,
+        hours: Number,
+        level: Number,
+        name: String,
+        description: String
+    },
+    }
 
-    onMounted(() => {
-        courseServices.get(id.value)
-            .then((response) => {
-                 course.value = response.data
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    })
+    // const course = defineProps({
+    //     department: String,
+    //     number: String,
+    //     hours: Number,
+    //     level: Number,
+    //     name: String,
+    //     description: String,
+    // })
+
+
+
+    // onMounted(() => {
+    //     courseServices.get(id.value)
+    //         .then((response) => {
+    //              course.value = response.data
+    //         })
+    //         .catch((error) => {
+    //             console.log(error)
+    //         })
+    // })
 
 </script>
 
