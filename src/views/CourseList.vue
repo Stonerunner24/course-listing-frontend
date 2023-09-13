@@ -14,7 +14,8 @@ const headers = [
     align: 'left',
     sortable: false, 
     value: 'course_number'
-  }
+  },
+  {text: 'Name', value: 'course_name'}
 ]
 
 const editCourse = (course) => {
@@ -22,11 +23,14 @@ const editCourse = (course) => {
 };
 
 const deleteCourse = (course) => {
+  console.log('attempting deletion');
   CourseServices.delete(course.course_number)
     .then(() => {
+      console.log('deletion successful');
       retrieveCourses();
     })
     .catch((e) => {
+      console.log('deletion failed');
       message.value = e.response.data.message;
     });
 };
@@ -78,7 +82,7 @@ retrieveCourses();
             </tr>
           </thead> -->
           <tbody>
-            <v-data-table
+            <!-- <v-data-table
               :headers="headers"
               :items="courses"
               :items-per-page="5"
@@ -91,11 +95,11 @@ retrieveCourses();
 
             </template>
             
-          </v-data-table>
+          </v-data-table> -->
 
-            <!-- <tr v-for="(item, index) in courses" :key="item.title">
-              <td>{{ item.title }}</td>
-              <td>{{ item.description }}</td>
+            <tr v-for="(item, index) in courses" :key="item.title" style="border: 5px solid transparent">
+              <td>{{ item.course_name }}</td>
+              <td>{{ item.course_number }}</td>
               <td>
                 <v-icon small class="mx-4" @click="editCourse(item)">
                   mdi-pencil
@@ -107,7 +111,7 @@ retrieveCourses();
                   mdi-trash-can
                 </v-icon>
               </td>
-            </tr> -->
+            </tr>
           </tbody>
         </v-table>
       </v-card>
