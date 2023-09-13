@@ -1,5 +1,6 @@
-  <script setup>
-import ocLogo from "/oc-logo-white.png";
+<script setup>
+import ocLogo from "/oc-logo-red.svg";
+
 import { ref, onMounted } from "vue";
 import Utils from "../config/utils";
 
@@ -18,18 +19,6 @@ const resetMenu = () => {
   }
 };
 
-const logout = () => {
-  AuthServices.logoutUser(user.value)
-    .then((response) => {
-      console.log(response);
-      Utils.removeItem("user");
-      $router.push({ name: "login" });
-    })
-    .catch((error) => {
-      console.log("error", error);
-    });
-};
-
 onMounted(() => {
   logoURL.value = ocLogo;
   resetMenu();
@@ -38,7 +27,7 @@ onMounted(() => {
 
 <template>
   <div>
-    <v-app-bar app>
+    <v-app-bar app color="primary">
       <router-link :to="{ name: 'courses' }">
         <v-img
           class="mx-2"
@@ -52,36 +41,6 @@ onMounted(() => {
         {{ title }}
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <div v-if="user">
-        <v-btn class="mx-2" :to="{ name: 'courses' }"> List </v-btn>
-        <v-btn class="mx-2" :to="{ name: 'add' }"> Add Tutorial </v-btn>
-      </div>
-      <v-menu bottom min-width="200px" rounded offset-y v-if="user">
-        <template v-slot:activator="{ props }">
-          <v-btn v-bind="props" icon x-large>
-            <v-avatar v-if="user" color="secondary">
-              <span class="accent--text font-weight-bold">{{ initials }}</span>
-            </v-avatar>
-          </v-btn>
-        </template>
-        <v-card>
-          <v-card-text>
-            <div class="mx-auto text-center">
-              <v-avatar color="secondary" class="mt-2 mb-2">
-                <span class="accent--text font-weight-bold">{{
-                  initials
-                }}</span>
-              </v-avatar>
-              <h3>{{ name }}</h3>
-              <p class="text-caption mt-1">
-                {{ user.email }}
-              </p>
-              <v-divider class="my-3"></v-divider>
-              <v-btn depressed rounded text @click="logout"> Logout </v-btn>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-menu>
     </v-app-bar>
   </div>
 </template>
