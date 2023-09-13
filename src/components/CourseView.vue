@@ -2,16 +2,16 @@
     import {ref, onMounted} from 'vue'
     import courseServices from '../services/courseServices';
 
-    const course = ({
-        department: "",
-        number: "",
-        level: "",
-        hours: "",
-        name: "",
-        description:""
-    })
+    const id = ref()
 
-    const id = ref(null)
+    const course = ({
+        department: course.value.department,
+        number: course.value.number,
+        level: course.value.level,
+        hours: course.value.hours,
+        name: course.value.name,
+        description: course.value.description
+    })
 
     onMounted(() => {
         courseServices.get(id.value)
@@ -33,7 +33,7 @@
                     <v-card-title>course number{{ course.number }} course name{{ course.name }}</v-card-title>
                     <v-card-text class="pa-4">Hours: {{ hours }}</v-card-text>
                     <v-card-text class="pa-4">description{{ course.description }}</v-card-text>
-                    <v-btn rounded="lg" elevation="2" class="float-right" color="#D5DFE7">
+                    <v-btn @click="onClick" rounded="lg" elevation="2" class="float-right" color="#D5DFE7">
                         <div class="v-button_content">Close</div>
                     </v-btn>
                 </v-card>
