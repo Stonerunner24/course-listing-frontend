@@ -1,5 +1,6 @@
 <script setup>
 import ocLogo from "/oc-logo-red.svg";
+
 import { ref, onMounted } from "vue";
 import Utils from "../config/utils";
 
