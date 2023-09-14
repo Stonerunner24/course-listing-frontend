@@ -80,7 +80,7 @@ onMounted(() => {
           :counter="4"
           required
         ></v-text-field>
-        <p>Course number (1234)</p>
+        <p>Course number (DEPT-1234)</p>
         <v-text-field
           v-model="course.course_number"
           id="courseNumber"
