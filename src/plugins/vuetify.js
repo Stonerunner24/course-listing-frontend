@@ -23,6 +23,8 @@ const myCustomLightTheme = {
     blue: "#196CA2",
     yellow: "#F8C545",
     darkblue: "#032F45",
+    bluebutton: "#118ACB",
+    bluebutton_hover: "#118ADF"
   },
 };
 
