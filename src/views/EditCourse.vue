@@ -1,10 +1,13 @@
 <script setup>
 import { ref, onMounted } from "vue";
+
 import courseServices from "../services/courseServices";
+
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 const valid = ref(false);
+
 const course = ref({
 
 });
@@ -27,9 +30,11 @@ const retrieveCourse = async () => {
     console.log(course.value)
   } catch (e) {
     
+
     message.value = e.response.data.message;
   }
 };
+
 
 const updateCourse = async () => {
   const data = {
@@ -44,17 +49,20 @@ const updateCourse = async () => {
     const response = await courseServices.update(props.id, data);
     course.value.id = response.data.id;
     router.push({ name: "courses" });
+
   } catch (e) {
     message.value = e.response.data.message;
   }
 };
 
 const cancel = () => {
+
   router.push({ name: "courses" });
 };
 
 onMounted(() => {
   retrieveCourse();
+
 });
 </script>
 
@@ -62,6 +70,7 @@ onMounted(() => {
   <div>
     <v-container>
       <v-toolbar>
+
         <v-toolbar-title>Course Edit</v-toolbar-title>
       </v-toolbar>
 
@@ -105,19 +114,24 @@ onMounted(() => {
         
         
 
+
         <v-btn
           :disabled="!valid"
           color="success"
           class="mr-4"
+
           @click="updateCourse()"
+
         >
           Save
         </v-btn>
+
 
         <v-btn color="error" class="mr-4" @click="cancel()">Cancel</v-btn>
       </v-form>
       
       
+
     </v-container>
   </div>
 </template>
