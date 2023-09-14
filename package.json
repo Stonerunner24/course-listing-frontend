@@ -1,5 +1,5 @@
 {
-  "name": "tutorial-frontend-vue3",
+  "name": "courses-frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -20,7 +20,7 @@
     "vite-plugin-vuetify": "^1.0.0",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
-    "vuetify": "^3.0.1",
+    "vuetify": "^3.3.15",
     "vuex": "^4.0.2",
     "webfontloader": "^1.6.28"
   },
