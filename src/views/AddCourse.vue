@@ -19,11 +19,15 @@ const message = ref("Enter data and click save");
 
 
 const savecourse = () => {
-  let level;
+  
+  const level = course.value.courseNumber.split("-");
+  console.log(level[1])
+  console.log(level[0])
+  console.log(parseInt(Math.floor(level[1]/1000)))
   const data = {
     department: course.value.department,
-    course_number: course.value.department + '-' + course.value.courseNumber,
-    course_level: parseInt(Math.floor(course.value.courseNumber/1000)),
+    course_number: course.value.courseNumber,
+    course_level: parseInt(level[1].charAt(0)),
     credit_hours:course.value.creditHours,
     course_name: course.value.courseName,
     description: course.value.description,
@@ -65,7 +69,7 @@ onMounted(() => {
   <div>
     <v-container>
       <v-toolbar>
-        <v-toolbar-title>course Add</v-toolbar-title>
+        <v-toolbar-title>Course Add</v-toolbar-title>
       </v-toolbar>
 
       <br />
@@ -73,17 +77,17 @@ onMounted(() => {
       <h4>{{ message }}</h4>
       <br />
       <v-form ref="form" v-model="valid" lazy-validation>
-        <p>credit hours (0-4)</p>
+        <p>Credit hours (0-4)</p>
         <v-text-field
           v-model="course.creditHours"></v-text-field>
-        <p>Dpartment (ABCD)</p>
+        <p>Department (ABCD)</p>
         <v-text-field
           v-model="course.department"
           id="department"
           :counter="4"
           required
         ></v-text-field>
-        <p>Course number (1234)</p>
+        <p>Course number (DEPT-1234)</p>
         <v-text-field
           v-model="course.courseNumber"
           id="courseNumber"
