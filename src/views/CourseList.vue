@@ -4,12 +4,14 @@ import Utils from "../config/utils.js";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import DeleteCourse from "../components/DeleteCourse.vue"
+import CourseView from "../components/CourseView.vue";
 
 
 const router = useRouter();
 const courses = ref([]);
 const message = ref("View, edit, or delete courses.");
 const deleteModal = ref(false);
+const viewModal = ref(false);
 const selectedCourse = ref(null);
 const headers = [
   {
@@ -28,9 +30,6 @@ const addCourse = () => {
 const editCourse = (course) => {
   router.push({ name: "edit", params: { id: course.course_number } });
 };
-const viewCourse = (course) => {
-  router.push({name: "view", params: {course}})
-}
 
 const handleDelete = (course_number) => {
   console.log(course_number);
@@ -95,7 +94,7 @@ retrieveCourses();
                 <v-icon small class="mx-4" @click="editCourse(item)">
                   mdi-pencil
                 </v-icon>
-                <v-icon small class="mx-4" @click="viewCourse(item)">
+                <v-icon small class="mx-4" @click.stop="(viewModal = true), (selectedCourse = item)">
                   mdi-format-list-bulleted-type
                 </v-icon>
                 <v-icon small class="mx-4" @click.stop="(deleteModal = true), (selectedCourse = item.course_number)">
@@ -115,8 +114,15 @@ retrieveCourses();
       <DeleteCourse 
         :id="selectedCourse"
         @delete="handleDelete"
-        @cancel="(deleteModal = false), (selectedCourse = null)"/>
-      
+        @cancel="(deleteModal = false), (selectedCourse = null)"/>      
+    </v-dialog>
+
+    <v-dialog
+      v-model = "viewModal"
+      width="50%">
+      <CourseView
+        :course="selectedCourse"
+        @cancel="(viewModal = false), (selectedCourse = null)"/>
     </v-dialog>
   </div>
 </template>
