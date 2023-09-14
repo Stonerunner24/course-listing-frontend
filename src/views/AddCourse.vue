@@ -69,7 +69,7 @@ onMounted(() => {
   <div>
     <v-container>
       <v-toolbar>
-        <v-toolbar-title>course Add</v-toolbar-title>
+        <v-toolbar-title>Course Add</v-toolbar-title>
       </v-toolbar>
 
       <br />
