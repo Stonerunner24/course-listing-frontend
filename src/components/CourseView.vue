@@ -14,7 +14,6 @@
 <template>
     <div>
         <v-container>
-            <b-overlay :show="show" rounded="sm">
                 <v-card elevation="5" rounded="lg" class="pa-10">
                     <v-card-title>{{ course.number }} {{ course.name }}</v-card-title>
                     <v-card-text class="pa-4">Hours: {{ course.hours }}</v-card-text>
@@ -23,7 +22,6 @@
                         <div class="v-button_content">Close</div>
                     </v-btn>
                 </v-card>
-            </b-overlay>
         </v-container>
     </div>
 </template>
