@@ -69,7 +69,7 @@ retrieveCourses();
 
 <template>
   <div>
-    <v-container>
+    <v-container @click.stop>
       <br /><br />
       <v-card>
         <v-card-title> Courses </v-card-title>
@@ -97,7 +97,7 @@ retrieveCourses();
                 <v-icon small class="mx-4" @click.stop="(viewModal = true), (selectedCourse = item)">
                   mdi-format-list-bulleted-type
                 </v-icon>
-                <v-icon small class="mx-4" @click.stop="(deleteModal = true), (selectedCourse = item.course_number)">
+                <v-icon small class="mx-4 delete-button" @click.stop.prevent="(deleteModal = true),(selectedCourse = item.course_number)">
                   mdi-trash-can
                 </v-icon>
               </td>
