@@ -3,11 +3,14 @@ import CourseServices from "../services/courseServices";
 import Utils from "../config/utils.js";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import DeleteCourse from "../components/DeleteCourse.vue"
 
 
 const router = useRouter();
 const courses = ref([]);
 const message = ref("View, edit, or delete courses.");
+const deleteModal = ref(false);
+const selectedCourse = ref(null);
 const headers = [
   {
     text: 'Course Number',
@@ -29,9 +32,16 @@ const viewCourse = (course) => {
   router.push({name: "view", params: {course}})
 }
 
-const deleteCourse = (course) => {
-  console.log(course.course_number);
-  CourseServices.delete(course.course_number)
+const handleDelete = (course_number) => {
+  console.log(course_number);
+  deleteModal.value = false; 
+  selectedCourse.value = null;
+  deleteCourse(course_number);
+}
+
+const deleteCourse = (course_number) => {
+  console.log(course_number);
+  CourseServices.delete(course_number)
     .then(() => {
       retrieveCourses();
     })
@@ -54,19 +64,6 @@ const retrieveCourses = () => {
 
 retrieveCourses();
 
-// const data = () => {
-//   return{
-//     headers: [
-//       {
-//         text: 'Course Number',
-//         align: 'left',
-//         sortable: false,
-//         value: 'course_number',
-//       },
-//       {text: 'Name', value: 'course_name'}
-//     ]
-//   };
-// };
 
 
 </script>
@@ -91,7 +88,7 @@ retrieveCourses();
         </v-card-text>
         <v-table>
           <tbody>
-            <tr v-for="(item, index) in courses" :key="item.title" style="border: 5px solid transparent">
+            <tr v-for="(item, index) in courses" :key="item.course_number" style="border: 5px solid transparent">
               <td>{{ item.course_name }}</td>
               <td>{{ item.course_number }}</td>
               <td>
@@ -101,7 +98,7 @@ retrieveCourses();
                 <v-icon small class="mx-4" @click="viewCourse(item)">
                   mdi-format-list-bulleted-type
                 </v-icon>
-                <v-icon small class="mx-4" @click="deleteCourse(item)">
+                <v-icon small class="mx-4" @click.stop="(deleteModal = true), (selectedCourse = item.course_number)">
                   mdi-trash-can
                 </v-icon>
               </td>
@@ -110,5 +107,16 @@ retrieveCourses();
         </v-table>
       </v-card>
     </v-container>
+    <v-dialog
+        v-model="deleteModal"
+        activator="parent"
+        width="auto"
+      >
+      <DeleteCourse 
+        :id="selectedCourse"
+        @delete="handleDelete"
+        @cancel="(deleteModal = false), (selectedCourse = null)"/>
+      
+    </v-dialog>
   </div>
 </template>
