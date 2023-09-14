@@ -18,15 +18,21 @@ const headers = [
   {text: 'Name', value: 'course_name'}
 ]
 
+const addCourse = () => {
+  router.push({ name: 'add'});
+}
+
 const editCourse = (course) => {
   router.push({ name: "edit", params: { id: course.course_number } });
 };
+const viewCourse = (course) => {
+  router.push({name: "view", params: {course}})
+}
 
 const deleteCourse = (course) => {
-  console.log('attempting deletion');
+  console.log(course.course_number);
   CourseServices.delete(course.course_number)
     .then(() => {
-      console.log('deletion successful');
       retrieveCourses();
     })
     .catch((e) => {
@@ -36,6 +42,7 @@ const deleteCourse = (course) => {
 };
 
 const retrieveCourses = () => {
+  console.log('retrieving courses');
   CourseServices.getAll()
     .then((response) => {
       courses.value = response.data;
@@ -72,31 +79,18 @@ retrieveCourses();
         <v-card-title> Courses </v-card-title>
         <v-card-text>
           <b>{{ message }}</b>
+          <v-btn 
+            class="float-right"
+            rounded="lg"
+            color="bluebutton"
+            variant="elevated"
+            @click="addCourse()"
+          >
+            Add New Course
+          </v-btn>
         </v-card-text>
         <v-table>
-          <!-- <thead>
-            <tr>
-              <th class="text-left">Title</th>
-              <th class="text-left">Description</th>
-              <th class="text-left">Actions</th>
-            </tr>
-          </thead> -->
           <tbody>
-            <!-- <v-data-table
-              :headers="headers"
-              :items="courses"
-              :items-per-page="5"
-            >
-            <template v-slot:items="props">
-              <td>{{ props.item.course_number }}</td>
-              <td>{{ props.item.course_name }}</td>
-
-
-
-            </template>
-            
-          </v-data-table> -->
-
             <tr v-for="(item, index) in courses" :key="item.title" style="border: 5px solid transparent">
               <td>{{ item.course_name }}</td>
               <td>{{ item.course_number }}</td>
