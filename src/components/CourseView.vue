@@ -8,8 +8,8 @@
         course: Object,
     },
     }
-
 </script>
+
 
 <template>
     <div>
