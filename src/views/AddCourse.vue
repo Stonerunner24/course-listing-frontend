@@ -9,11 +9,8 @@ const router = useRouter();
 const valid = ref(false);
 const course = ref({
   creditHours: 0,
-  id: '',
   courseName: "",
   description: "",
-  time: "",
-  published: false,
   department: "",
   courseNumber: "",
   courseLevel:0,
@@ -23,15 +20,20 @@ const message = ref("Enter data and click save");
 
 const savecourse = () => {
   const data = {
-    department: '',
-    course_number: 'course.value.description',
+    department: course.value.department,
+    course_number: course.value.department + '-' + course.value.courseNumber,
+    coures_level: Math.floor(course.value.courseNumber/1000),
+    credit_hours:course.value.creditHours,
+    course_name: course.value.courseName,
+    description: course.value.description,
 
     //published: true,
     //userId: user.userId,
     
   };
-  console.log(course.value.courseLevel);
-  console.log(course.value.creditHours);
+  
+  console.log("department " + data.department)
+  console.log("course number ")
   CourseServices.create(data)
     .then((response) => {
       course.value.id = response.data.id;
@@ -65,7 +67,7 @@ onMounted(() => {
       <br />
       <h4>{{ message }}</h4>
       <br />
-      <v-form ref="form" v-model="valid" lazy validation>
+      <v-form ref="form" v-model="valid" lazy-validation>
         <p>credit hours</p>
         <v-text-field
           v-model="course.creditHours"></v-text-field>
@@ -81,6 +83,7 @@ onMounted(() => {
           v-model="course.courseNumber"
           id="courseNumber"
           :counter="50"
+          
           
           required
         ></v-text-field>
