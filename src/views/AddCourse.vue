@@ -77,10 +77,10 @@ onMounted(() => {
       <h4>{{ message }}</h4>
       <br />
       <v-form ref="form" v-model="valid" lazy-validation>
-        <p>credit hours (0-4)</p>
+        <p>Credit hours (0-4)</p>
         <v-text-field
           v-model="course.creditHours"></v-text-field>
-        <p>Dpartment (ABCD)</p>
+        <p>Department (ABCD)</p>
         <v-text-field
           v-model="course.department"
           id="department"
