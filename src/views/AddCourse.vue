@@ -19,11 +19,15 @@ const message = ref("Enter data and click save");
 
 
 const savecourse = () => {
-  let level;
+  
+  const level = course.value.courseNumber.split("-");
+  console.log(level[1])
+  console.log(level[0])
+  console.log(parseInt(Math.floor(level[1]/1000)))
   const data = {
     department: course.value.department,
-    course_number: course.value.department + '-' + course.value.courseNumber,
-    course_level: parseInt(Math.floor(course.value.courseNumber/1000)),
+    course_number: course.value.courseNumber,
+    course_level: parseInt(level[1].charAt(0)),
     credit_hours:course.value.creditHours,
     course_name: course.value.courseName,
     description: course.value.description,

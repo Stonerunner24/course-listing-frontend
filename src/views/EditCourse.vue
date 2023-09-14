@@ -23,6 +23,7 @@ const retrieveCourse = async () => {
     const response = await courseServices.get(props.id);
     //console.log(response)
     course.value = response.data;
+    console.log("course values: ")
     console.log(course.value)
   } catch (e) {
     
@@ -33,10 +34,10 @@ const retrieveCourse = async () => {
 const updateCourse = async () => {
   const data = {
     department: course.value.department,
-    course_number: course.value.department + '-' + course.value.course_number,
+    course_number: course.value.course_number,
     course_level: parseInt(Math.floor(course.value.course_number/1000)),
-    credit_hours:course.value.creditHours,
-    course_name: course.value.courseName,
+    credit_hours:course.value.credit_hours,
+    course_name: course.value.course_name,
     description: course.value.description,
   };
   try {
