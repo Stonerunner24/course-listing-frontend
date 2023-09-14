@@ -8,21 +8,22 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const valid = ref(false);
 const course = ref({
-  creditHours: 0,
-  courseName: "",
-  description: "",
-  department: "",
-  courseNumber: "",
-  courseLevel:0,
+  creditHours:null,
+  courseName: null,
+  description: null,
+  department: null,
+  courseNumber: null,
+  courseLevel:null,
 });
 const message = ref("Enter data and click save");
 
 
 const savecourse = () => {
+  let level;
   const data = {
     department: course.value.department,
     course_number: course.value.department + '-' + course.value.courseNumber,
-    coures_level: Math.floor(course.value.courseNumber/1000),
+    course_level: parseInt(Math.floor(course.value.courseNumber/1000)),
     credit_hours:course.value.creditHours,
     course_name: course.value.courseName,
     description: course.value.description,
@@ -32,8 +33,12 @@ const savecourse = () => {
     
   };
   
+  
+  
   console.log("department " + data.department)
-  console.log("course number ")
+  console.log("course number " + data.department)
+  console.log("credit_hours " + data.course_name)
+  console.log("course_level " + data.course_level)
   CourseServices.create(data)
     .then((response) => {
       course.value.id = response.data.id;
@@ -68,17 +73,17 @@ onMounted(() => {
       <h4>{{ message }}</h4>
       <br />
       <v-form ref="form" v-model="valid" lazy-validation>
-        <p>credit hours</p>
+        <p>credit hours (0-4)</p>
         <v-text-field
           v-model="course.creditHours"></v-text-field>
-        <p>department</p>
+        <p>Dpartment (ABCD)</p>
         <v-text-field
           v-model="course.department"
           id="department"
           :counter="4"
           required
         ></v-text-field>
-        <p>course number</p>
+        <p>Course number (1234)</p>
         <v-text-field
           v-model="course.courseNumber"
           id="courseNumber"
@@ -87,15 +92,19 @@ onMounted(() => {
           
           required
         ></v-text-field>
-        <p>course Name</p>
+        <p>Course Name</p>
         <v-text-field
           v-model="course.courseName"
           id="courseName"
+          :counter="255"
           required 
           ></v-text-field>
-        <p>course description</p>
+        <p>Course description</p>
         <v-text-field
-          v-model="course.description"></v-text-field>
+          v-model="course.description"
+          id="courseDescription"
+          :counter="255"
+          required></v-text-field>
         
         
 
